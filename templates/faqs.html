@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQs - Betten AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: linear-gradient(135deg, #000000 0%, #330000 100%);
+        min-height: 100vh;
+        color: #ffffff;
+      }
+    </style>
+  </head>
+  <body class="p-8">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center">
+          <img
+            src="{{ url_for('static', filename='images/bettenLocal.jpg') }}"
+            alt="Betten Logo"
+            class="w-12 h-12 rounded-full mr-4"
+          />
+          <h1 class="text-3xl font-bold">Betten AI - FAQs</h1>
+        </div>
+        <div>
+          <a
+            href="{{ url_for('chat') }}"
+            class="text-red-400 hover:text-red-300 mr-4"
+            >Back to Chat</a
+          >
+          <a
+            href="{{ url_for('logout') }}"
+            class="text-red-400 hover:text-red-300"
+            >Logout</a
+          >
+        </div>
+      </div>
+
+      <div class="bg-black bg-opacity-50 p-6 rounded-lg mb-6">
+        <h2 class="text-2xl font-bold mb-4 text-red-400">About Betten AI</h2>
+        <p class="mb-4">
+          Betten AI is a local, uncensored AI assistant designed for creative
+          minds. It runs entirely on your machine, ensuring privacy and
+          security.
+        </p>
+        <p class="mb-4">
+          This project was created by <strong>Nox</strong>, a passionate
+          developer focused on building tools that empower creativity without
+          compromising privacy.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-black bg-opacity-50 p-6 rounded-lg">
+          <h3 class="text-xl font-bold mb-2 text-red-400">
+            What is Betten AI?
+          </h3>
+          <p>
+            Betten AI is an AI companion that helps you with creative ideas,
+            coding, writing, and more. It's designed to be uncensored and
+            helpful for all kinds of tasks.
+          </p>
+        </div>
+
+        <div class="bg-black bg-opacity-50 p-6 rounded-lg">
+          <h3 class="text-xl font-bold mb-2 text-red-400">Is my data safe?</h3>
+          <p>
+            Yes! Betten AI runs locally on your machine using Ollama. No data is
+            sent to external servers, and chat history is only stored
+            temporarily in your browser session.
+          </p>
+        </div>
+
+        <div class="bg-black bg-opacity-50 p-6 rounded-lg">
+          <h3 class="text-xl font-bold mb-2 text-red-400">How do I use it?</h3>
+          <p>
+            Simply type your questions or requests in the chat interface. Betten
+            AI will respond with helpful, formatted answers including code
+            blocks when appropriate.
+          </p>
+        </div>
+
+        <div class="bg-black bg-opacity-50 p-6 rounded-lg">
+          <h3 class="text-xl font-bold mb-2 text-red-400">
+            Can I start new conversations?
+          </h3>
+          <p>
+            Yes, you can start new chats from the sidebar. Each conversation is
+            independent, and you can switch between them easily.
+          </p>
+        </div>
+
+        <div class="bg-black bg-opacity-50 p-6 rounded-lg">
+          <h3 class="text-xl font-bold mb-2 text-red-400">
+            Enjoy using Betten AI!
+          </h3>
+          <p>
+            Have fun exploring your creativity with Betten AI. Whether you're
+            coding, writing, or brainstorming ideas, Betten is here to help you
+            build amazing things.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
