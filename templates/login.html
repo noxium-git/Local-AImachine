@@ -4,62 +4,252 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - Betten AI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
       body {
-        background: linear-gradient(135deg, #000000 0%, #330000 100%);
+        margin: 0;
+        padding: 0;
         min-height: 100vh;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(230, 0, 0, 0.18),
+            transparent 28%
+          ),
+          linear-gradient(135deg, #090909 0%, #220000 100%);
+        color: #f8f8f8;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+      }
+
+      .page-shell {
+        width: 100%;
+        max-width: 460px;
+      }
+
+      .login-card {
+        width: 100%;
+        background: rgba(8, 8, 8, 0.98);
+        border: 1px solid rgba(255, 0, 0, 0.22);
+        border-radius: 1.25rem;
+        box-shadow: 0 32px 120px rgba(0, 0, 0, 0.45);
+        padding: 2rem;
+        backdrop-filter: blur(18px);
+      }
+
+      .login-brand {
+        text-align: center;
+        margin-bottom: 1.75rem;
+      }
+
+      .login-brand img {
+        width: 80px;
+        height: 80px;
+        border-radius: 999px;
+        border: 2px solid rgba(255, 56, 56, 0.85);
+        object-fit: cover;
+        margin-bottom: 1rem;
+      }
+
+      .login-brand h1 {
+        margin: 0;
+        font-size: 2rem;
+        letter-spacing: 0.04em;
+        color: #ff8e8e;
+      }
+
+      .login-brand p {
+        margin: 0.6rem auto 0;
+        color: #b9b9b9;
+        max-width: 84%;
+        line-height: 1.6;
+      }
+
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+
+      label {
+        display: block;
+        font-size: 0.95rem;
+        margin-bottom: 0.45rem;
+        color: #ff9a9a;
+      }
+
+      input {
+        width: 100%;
+        padding: 1rem 1rem;
+        border-radius: 0.95rem;
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        background: rgba(30, 30, 30, 0.95);
+        color: #fff;
+        font-size: 1rem;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #ff3b3b;
+        box-shadow: 0 0 0 4px rgba(255, 59, 59, 0.14);
+      }
+
+      button {
+        width: 100%;
+        padding: 1rem 1rem;
+        border: none;
+        border-radius: 1rem;
+        background: linear-gradient(135deg, #d32f2f 0%, #8b0000 100%);
+        color: white;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 18px 40px rgba(217, 62, 62, 0.24);
+        background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      }
+
+      .feedback {
+        margin-top: 1.2rem;
+        text-align: center;
+        color: #ff7474;
+      }
+
+      .hint {
+        margin-top: 1.5rem;
+        text-align: center;
+        color: #9c9c9c;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .hint strong {
+        color: #f3f3f3;
       }
     </style>
   </head>
-  <body class="flex items-center justify-center min-h-screen">
-    <div
-      class="bg-black bg-opacity-80 p-8 rounded-lg shadow-lg max-w-md w-full border border-red-600"
-    >
-      <div class="text-center mb-6">
-        <img
-          src="{{ url_for('static', filename='images/bettenLocal.jpg') }}"
-          alt="Betten Logo"
-          class="w-16 h-16 mx-auto mb-4 rounded-full border-2 border-red-500"
-        />
-        <h1 class="text-2xl font-bold text-red-400">Welcome to Betten AI</h1>
-        <p class="text-gray-300">Please log in to continue</p>
+  <body
+    style="
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(230, 0, 0, 0.18),
+          transparent 28%
+        ),
+        linear-gradient(135deg, #090909 0%, #220000 100%);
+      color: #f8f8f8;
+    "
+  >
+    <div class="page-shell">
+      <div
+        class="login-card"
+        style="
+          background: rgba(8, 8, 8, 0.98);
+          border: 1px solid rgba(255, 0, 0, 0.22);
+          border-radius: 1.25rem;
+          box-shadow: 0 32px 120px rgba(0, 0, 0, 0.45);
+          padding: 2rem;
+          backdrop-filter: blur(18px);
+        "
+      >
+        <div class="login-brand">
+          <img
+            src="{{ url_for('static', filename='images/bettenLocal.jpg') }}"
+            alt="Betten Logo"
+            width="80"
+            height="80"
+            style="
+              width: 80px;
+              height: 80px;
+              border-radius: 999px;
+              border: 2px solid rgba(255, 56, 56, 0.85);
+              object-fit: cover;
+              margin-bottom: 1rem;
+            "
+          />
+          <h1>Welcome to Betten AI</h1>
+          <p>Offline local AI access. Login to continue in secure mode.</p>
+        </div>
+
+        <form method="post">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              required
+              autocomplete="username"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              autocomplete="current-password"
+            />
+          </div>
+
+          <button
+            type="submit"
+            style="
+              width: 100%;
+              padding: 1rem 1rem;
+              border: none;
+              border-radius: 1rem;
+              background: linear-gradient(135deg, #d32f2f 0%, #8b0000 100%);
+              color: white;
+              font-size: 1rem;
+              font-weight: 700;
+              cursor: pointer;
+              transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+            "
+          >
+            Login
+          </button>
+        </form>
+
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <div class="feedback">{{ messages[0] }}</div>
+        {% endif %} {% endwith %}
+
+        <div class="hint">
+          No internet required. Ollama runs locally and keeps your data private.
+        </div>
       </div>
-      <form method="post">
-        <div class="mb-4">
-          <label for="username" class="block text-red-400 font-bold"
-            >Username</label
-          >
-          <input
-            type="text"
-            id="username"
-            name="username"
-            required
-            class="w-full px-3 py-2 bg-gray-800 border border-red-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
-          />
-        </div>
-        <div class="mb-6">
-          <label for="password" class="block text-red-400 font-bold"
-            >Password</label
-          >
-          <input
-            type="password"
-            id="password"
-            name="password"
-            required
-            class="w-full px-3 py-2 bg-gray-800 border border-red-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
-          />
-        </div>
-        <button
-          type="submit"
-          class="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 transition duration-200"
-        >
-          Login
-        </button>
-      </form>
-      {% with messages = get_flashed_messages() %} {% if messages %}
-      <div class="mt-4 text-red-400 text-center">{{ messages[0] }}</div>
-      {% endif %} {% endwith %}
     </div>
   </body>
 </html>

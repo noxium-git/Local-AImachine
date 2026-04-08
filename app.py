@@ -5,7 +5,7 @@ import json
 import markdown
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Change this to a random secret key
+app.secret_key = os.environ.get('BETTEN_SECRET_KEY', 'your_secret_key_here')  # Set BETTEN_SECRET_KEY in environment for production
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 MODEL = "godmoded/llama3-lexi-uncensored:latest"
@@ -326,5 +326,10 @@ def search_messages():
     
     return jsonify({'results': results})
 
+
+def main():
+    app.run(host='0.0.0.0', port=5000)
+
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    main()

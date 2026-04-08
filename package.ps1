@@ -24,6 +24,10 @@ if (-not (Get-Command pyinstaller -ErrorAction SilentlyContinue)) {
 }
 
 $distName = 'BettenAI'
+if (-not (Test-Path "storage.json")) {
+    Write-Host 'Creating default storage.json...' -ForegroundColor Yellow
+    '{}' | Out-File -Encoding utf8 storage.json
+}
 $specArgs = @(
     '--onefolder',
     '--noconsole',
@@ -33,12 +37,12 @@ $specArgs = @(
     "--add-data=storage.json;."
 )
 
-Write-Host "Running PyInstaller for app.py..." -ForegroundColor Green
-pyinstaller @specArgs app.py
+Write-Host "Running PyInstaller for launcher.py..." -ForegroundColor Green
+pyinstaller @specArgs launcher.py
 
 if (Test-Path "dist\$distName") {
     Write-Host "Build complete: dist\$distName" -ForegroundColor Green
-    Write-Host "You can run the bundled app from dist\$distName\app.exe" -ForegroundColor White
+    Write-Host "You can run the bundled app from dist\$distName\$distName.exe" -ForegroundColor White
 } else {
     Write-Error "Build failed: dist\$distName not found."
 }

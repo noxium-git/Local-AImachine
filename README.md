@@ -32,7 +32,7 @@ Created by **Nox**.
 3. Run the application:
 
    ```
-   python app.py
+   python launcher.py
    ```
 
 4. Open your browser to `http://localhost:5000`
@@ -40,6 +40,22 @@ Created by **Nox**.
 5. Login with:
    - Username: admin
    - Password: admin123
+
+## Packaging
+
+To create a local Windows package and installer:
+
+1. Install dependencies:
+   ```
+   pip install pyinstaller
+   ```
+2. Run the build script:
+   ```
+   .\package.ps1
+   ```
+3. After building, open `BettenAIInstaller.iss` in Inno Setup and compile it to generate a Windows installer.
+4. Make sure Ollama is installed locally and the model is downloaded before distributing the app.
+5. For production, set a secure `BETTEN_SECRET_KEY` environment variable instead of using the default development placeholder.
 
 ## Project Structure
 
