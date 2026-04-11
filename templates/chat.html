@@ -1,14 +1,105 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" {% if initial_theme and initial_theme != 'crimson' %}data-theme="{{ initial_theme }}"{% endif %}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Betten AI Chat</title>
+    <title>Court Chat</title>
     <link
       rel="icon"
       href="{{ url_for('static', filename='images/bettenLocal.jpg') }}"
     />
     <style>
+      :root {
+        --brand-200: #fecaca;
+        --brand-300: #fca5a5;
+        --brand-400: #f87171;
+        --brand-500: #ef4444;
+        --brand-600: #dc2626;
+        --brand-700: #b91c1c;
+        --brand-800: #991b1b;
+        --brand-700-20: rgba(185, 28, 28, 0.2);
+        --brand-700-40: rgba(185, 28, 28, 0.4);
+        --brand-focus: rgba(239, 68, 68, 0.35);
+        --page-gradient: linear-gradient(135deg, #000000 0%, #330000 100%);
+      }
+      [data-theme='purple'] {
+        --brand-200: #ddd6fe;
+        --brand-300: #c4b5fd;
+        --brand-400: #a78bfa;
+        --brand-500: #8b5cf6;
+        --brand-600: #7c3aed;
+        --brand-700: #6d28d9;
+        --brand-800: #5b21b6;
+        --brand-700-20: rgba(109, 40, 217, 0.2);
+        --brand-700-40: rgba(109, 40, 217, 0.4);
+        --brand-focus: rgba(139, 92, 246, 0.35);
+        --page-gradient: linear-gradient(135deg, #0b0319 0%, #220b47 100%);
+      }
+      [data-theme='pink'] {
+        --brand-200: #fbcfe8;
+        --brand-300: #f9a8d4;
+        --brand-400: #f472b6;
+        --brand-500: #ec4899;
+        --brand-600: #db2777;
+        --brand-700: #be185d;
+        --brand-800: #9d174d;
+        --brand-700-20: rgba(190, 24, 93, 0.2);
+        --brand-700-40: rgba(190, 24, 93, 0.4);
+        --brand-focus: rgba(236, 72, 153, 0.35);
+        --page-gradient: linear-gradient(135deg, #16040e 0%, #3e0a25 100%);
+      }
+      [data-theme='black'] {
+        --brand-200: #d1d5db;
+        --brand-300: #9ca3af;
+        --brand-400: #6b7280;
+        --brand-500: #4b5563;
+        --brand-600: #374151;
+        --brand-700: #1f2937;
+        --brand-800: #111827;
+        --brand-700-20: rgba(31, 41, 55, 0.2);
+        --brand-700-40: rgba(31, 41, 55, 0.4);
+        --brand-focus: rgba(75, 85, 99, 0.35);
+        --page-gradient: linear-gradient(135deg, #050505 0%, #181818 100%);
+      }
+      [data-theme='blue'] {
+        --brand-200: #bfdbfe;
+        --brand-300: #93c5fd;
+        --brand-400: #60a5fa;
+        --brand-500: #3b82f6;
+        --brand-600: #2563eb;
+        --brand-700: #1d4ed8;
+        --brand-800: #1e40af;
+        --brand-700-20: rgba(29, 78, 216, 0.2);
+        --brand-700-40: rgba(29, 78, 216, 0.4);
+        --brand-focus: rgba(59, 130, 246, 0.35);
+        --page-gradient: linear-gradient(135deg, #031022 0%, #0a2c63 100%);
+      }
+      [data-theme='emerald'] {
+        --brand-200: #a7f3d0;
+        --brand-300: #6ee7b7;
+        --brand-400: #34d399;
+        --brand-500: #10b981;
+        --brand-600: #059669;
+        --brand-700: #047857;
+        --brand-800: #065f46;
+        --brand-700-20: rgba(4, 120, 87, 0.2);
+        --brand-700-40: rgba(4, 120, 87, 0.4);
+        --brand-focus: rgba(16, 185, 129, 0.35);
+        --page-gradient: linear-gradient(135deg, #02120d 0%, #0a3f2f 100%);
+      }
+      [data-theme='orange'] {
+        --brand-200: #fed7aa;
+        --brand-300: #fdba74;
+        --brand-400: #fb923c;
+        --brand-500: #f97316;
+        --brand-600: #ea580c;
+        --brand-700: #c2410c;
+        --brand-800: #9a3412;
+        --brand-700-20: rgba(194, 65, 12, 0.2);
+        --brand-700-40: rgba(194, 65, 12, 0.4);
+        --brand-focus: rgba(249, 115, 22, 0.35);
+        --page-gradient: linear-gradient(135deg, #140902 0%, #4a220a 100%);
+      }
       * {
         box-sizing: border-box;
       }
@@ -25,7 +116,7 @@
           BlinkMacSystemFont,
           "Segoe UI",
           sans-serif;
-        background: linear-gradient(135deg, #000000 0%, #330000 100%);
+        background: var(--page-gradient);
         color: #ffffff;
       }
       body {
@@ -149,16 +240,16 @@
         border: 1px solid rgba(255, 255, 255, 0.15);
       }
       .border-red-500 {
-        border-color: #ef4444;
+        border-color: var(--brand-500);
       }
       .border-red-600 {
-        border-color: #dc2626;
+        border-color: var(--brand-600);
       }
       .border-red-700 {
-        border-color: #b91c1c;
+        border-color: var(--brand-700);
       }
       .border-red-700\/40 {
-        border-color: rgba(185, 28, 28, 0.4);
+        border-color: var(--brand-700-40);
       }
       .bg-black\/40 {
         background: rgba(0, 0, 0, 0.4);
@@ -170,13 +261,13 @@
         background: #111827;
       }
       .bg-red-600 {
-        background: #dc2626;
+        background: var(--brand-600);
       }
       .bg-red-700 {
-        background: #b91c1c;
+        background: var(--brand-700);
       }
       .bg-red-800 {
-        background: #991b1b;
+        background: var(--brand-800);
       }
       .bg-transparent {
         background: transparent;
@@ -194,16 +285,16 @@
         box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.35);
       }
       .focus\:ring-red-500:focus {
-        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.35);
+        box-shadow: 0 0 0 2px var(--brand-focus);
       }
       .hover\:bg-red-700:hover {
-        background: #b91c1c;
+        background: var(--brand-700);
       }
       .hover\:bg-red-700\/20:hover {
-        background: rgba(185, 28, 28, 0.2);
+        background: var(--brand-700-20);
       }
       .hover\:text-red-300:hover {
-        color: #fca5a5;
+        color: var(--brand-300);
       }
       .hover\:text-white:hover {
         color: #ffffff;
@@ -226,13 +317,13 @@
         color: #ffffff;
       }
       .text-red-200 {
-        color: #fecaca;
+        color: var(--brand-200);
       }
       .text-red-300 {
-        color: #fca5a5;
+        color: var(--brand-300);
       }
       .text-red-400 {
-        color: #f87171;
+        color: var(--brand-400);
       }
       .text-gray-300 {
         color: #d1d5db;
@@ -324,7 +415,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         background: rgba(0, 0, 0, 0.95);
-        border: 1px solid rgba(255, 0, 0, 0.4);
+        border: 1px solid var(--brand-700-40);
         border-radius: 1rem;
         padding: 1.25rem;
         width: 90%;
@@ -342,12 +433,12 @@
         padding: 0.75rem;
         margin-bottom: 0.5rem;
         background: rgba(255, 255, 255, 0.05);
-        border-left: 3px solid rgba(255, 0, 0, 0.5);
+        border-left: 3px solid var(--brand-700-40);
         border-radius: 0.25rem;
         cursor: pointer;
       }
       .search-result-item:hover {
-        background: rgba(255, 0, 0, 0.15);
+        background: var(--brand-700-20);
       }
       .message-content p {
         margin: 0.9rem 0;
@@ -361,7 +452,7 @@
         margin: 0.35rem 0;
       }
       .message-content blockquote {
-        border-left: 3px solid rgba(255, 0, 0, 0.6);
+        border-left: 3px solid var(--brand-700-40);
         padding-left: 1rem;
         color: #d1d1d1;
         opacity: 0.9;
@@ -378,10 +469,10 @@
         padding: 10px 12px;
       }
       .message-content th {
-        background: rgba(255, 0, 0, 0.12);
+        background: var(--brand-700-20);
       }
       .message-content a {
-        color: #ff7f7f;
+        color: var(--brand-300);
         text-decoration: underline;
       }
       .message-content pre {
@@ -398,7 +489,7 @@
         position: absolute;
         top: 8px;
         right: 8px;
-        background: rgba(255, 0, 0, 0.9);
+        background: var(--brand-600);
         border: none;
         color: white;
         padding: 4px 10px;
@@ -410,7 +501,7 @@
         width: 100%;
         padding: 0.75rem 1rem;
         border-radius: 1rem;
-        border: 1px solid #dc2626;
+        border: 1px solid var(--brand-600);
         background: rgba(255, 255, 255, 0.05);
         color: #fff;
       }
@@ -442,10 +533,10 @@
         background: rgba(255, 255, 255, 0.03);
       }
       .chat-history-item:hover {
-        background: rgba(255, 0, 0, 0.13);
+        background: var(--brand-700-20);
       }
       .chat-history-item.active {
-        background: rgba(255, 0, 0, 0.18);
+        background: var(--brand-700-40);
       }
       .tag-badge {
         display: inline-flex;
@@ -453,13 +544,13 @@
         padding: 0.25rem 0.5rem;
         margin-right: 0.25rem;
         border-radius: 0.375rem;
-        background: rgba(255, 0, 0, 0.14);
-        color: #ffb3b3;
+        background: var(--brand-700-20);
+        color: var(--brand-200);
         font-size: 0.75rem;
       }
       .sidebar {
         background: rgba(0, 0, 0, 0.8);
-        border-right: 1px solid #660000;
+        border-right: 1px solid var(--brand-800);
         min-height: 100vh;
         padding: 1rem;
         width: 16rem;
@@ -471,7 +562,7 @@
       }
       .sidebar-header {
         background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 0, 0, 0.2);
+        border: 1px solid var(--brand-700-20);
         border-radius: 1.5rem;
         padding: 1.125rem;
         margin-bottom: 1.125rem;
@@ -479,7 +570,7 @@
       .persona-card {
         position: relative;
         background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 0, 0, 0.18);
+        border: 1px solid var(--brand-700-20);
         border-radius: 2rem;
         padding: 1.5rem;
         box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
@@ -496,24 +587,24 @@
         border-radius: 1rem;
       }
       .quick-tip {
-        background: rgba(255, 0, 0, 0.12);
-        border: 1px solid rgba(255, 0, 0, 0.22);
-        color: #ffe6e6;
+        background: var(--brand-700-20);
+        border: 1px solid var(--brand-700-20);
+        color: var(--brand-200);
         padding: 0.65rem 0.85rem;
         font-size: 0.9rem;
       }
       .quick-button {
         width: 100%;
         background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 0, 0, 0.22);
+        border: 1px solid var(--brand-700-20);
         color: #fff;
         font-weight: 600;
         padding: 0.75rem 0.85rem;
         cursor: pointer;
       }
       .quick-button:hover {
-        background: rgba(255, 0, 0, 0.14);
-        border-color: rgba(255, 0, 0, 0.6);
+        background: var(--brand-700-20);
+        border-color: var(--brand-700-40);
       }
       .button,
       button {
@@ -525,14 +616,14 @@
         align-items: center;
         gap: 0.5rem;
         padding: 1rem;
-        background: rgba(255, 0, 0, 0.1);
+        background: var(--brand-700-20);
         border-radius: 0.75rem;
         margin: 0.625rem 0;
       }
       .dot {
         width: 8px;
         height: 8px;
-        background: #ff0000;
+        background: var(--brand-500);
         border-radius: 50%;
         animation: bounce 1.4s infinite ease-in-out both;
       }
@@ -569,7 +660,7 @@
         right: 0;
         margin-top: 0.25rem;
         background: rgba(0, 0, 0, 0.95);
-        border: 1px solid #660000;
+        border: 1px solid var(--brand-800);
         border-radius: 0.5rem;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
         z-index: 50;
@@ -577,12 +668,12 @@
       .chat-action-menu button {
         width: 100%;
         text-align: left;
-        background: #330000;
-        border: 1px solid #b91c1c;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid var(--brand-700);
         color: #f8f8f8;
       }
       .chat-action-menu button:hover {
-        background: #5c0f0f;
+        background: var(--brand-700-20);
       }
       .sidebar-header p {
         color: #bfbfbf;
@@ -593,8 +684,8 @@
         align-items: center;
         padding: 0.25rem 0.625rem;
         border-radius: 999px;
-        background: rgba(255, 0, 0, 0.14);
-        color: #ffb3b3;
+        background: var(--brand-700-20);
+        color: var(--brand-200);
         font-size: 0.75rem;
         font-weight: 600;
       }
@@ -624,7 +715,7 @@
         }
       }
       .tag-input-btn {
-        background: rgba(255, 0, 0, 0.7);
+        background: var(--brand-600);
         border: none;
         color: white;
         padding: 0.375rem 0.625rem;
@@ -633,11 +724,11 @@
         font-size: 0.85rem;
       }
       .tag-input-btn:hover {
-        background: rgba(255, 0, 0, 0.9);
+        background: var(--brand-700);
       }
       .search-result-item .result-title {
         font-weight: 600;
-        color: #ffb3b3;
+        color: var(--brand-200);
         margin-bottom: 0.25rem;
       }
       .search-result-item .result-preview {
@@ -670,16 +761,16 @@
         left: 0;
         right: 0;
         z-index: 999;
-        background: #110000;
+        background: rgba(0, 0, 0, 0.92);
         color: #ffffff;
         padding: 10px 14px;
         font-family: Arial, sans-serif;
         font-size: 0.95rem;
-        border-bottom: 1px solid #660000;
+        border-bottom: 1px solid var(--brand-800);
         text-align: center;
       "
     >
-      Betten AI is loaded. If the interface does not render, refresh the page or
+      Court is loaded. If the interface does not render, refresh the page or
       check browser console for errors.
     </div>
     <div style="height: 40px"></div>
@@ -689,12 +780,13 @@
         <div class="flex items-center gap-3 mb-4">
           <img
             src="{{ url_for('static', filename='images/bettenLocal.jpg') }}"
-            alt="Betten Logo"
-            class="w-10 h-10 rounded-2xl border border-red-500"
+            alt="Court Logo"
+            class="w-10 h-10 rounded-2xl"
+            style="border: 1px solid var(--brand-500)"
           />
           <div>
-            <h2 class="text-lg font-bold text-red-400">Betten AI</h2>
-            <p class="text-xs uppercase tracking-[0.24em] text-red-300">
+            <h2 class="text-lg font-bold" style="color: var(--brand-400)">Court</h2>
+            <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-300)">
               Local creative co-pilot
             </p>
           </div>
@@ -781,7 +873,7 @@
               >
                 <img
                   src="{{ url_for('static', filename='images/bettenLocal.jpg') }}"
-                  alt="Betten Logo"
+                  alt="Court Logo"
                   class="w-full h-full rounded-2xl object-cover"
                 />
               </div>
@@ -789,17 +881,25 @@
                 <p
                   class="text-sm uppercase tracking-[0.25em] text-red-400 font-semibold"
                 >
-                  Betten AI
+                  {{ profile.assistant_name }}
                 </p>
                 <h1 class="text-3xl font-bold text-white">
                   Your local AI companion
                 </h1>
+                <p class="text-xs text-gray-400 mt-3">
+                  Logged in as <strong>{{ display_name }}</strong> (@{{ username
+                  }})
+                </p>
               </div>
             </div>
-            <div class="badge">Ready to help</div>
+            <div class="flex flex-col gap-2 items-start">
+              <div class="badge">Ready to help</div>
+              <div class="text-xs text-gray-300">Model: {{ model_name }}</div>
+              <div id="health-pill" class="badge">Checking local status...</div>
+            </div>
           </div>
           <p class="text-gray-300 max-w-3xl">
-            Betten is designed to feel premium and powerful — a private AI
+            Court is designed to feel premium and powerful — a private AI
             assistant running on your machine. Ask for code, ideas, or creative
             help and get formatted, polished responses instantly.
           </p>
@@ -852,13 +952,13 @@
           <div>
             <p class="text-sm font-semibold text-red-300">Settings</p>
             <p class="text-xs text-gray-400">
-              Update the system prompt that Betten uses for every response.
+              Update the system prompt that Court uses for every response.
             </p>
           </div>
           <button
             id="close-settings"
             type="button"
-            class="text-red-300 hover:text-white"
+            class="bg-transparent border border-red-600 text-red-200 px-3 py-1 rounded-lg hover:bg-red-700/20"
           >
             Close
           </button>
@@ -870,6 +970,151 @@
         >
 {{ system_prompt }}</textarea
         >
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+          <div>
+            <label class="text-xs text-gray-400">Assistant name</label>
+            <input
+              id="assistant-name"
+              class="w-full p-3 rounded-xl bg-gray-900 border border-red-700 text-white"
+              value="{{ profile.assistant_name }}"
+            />
+          </div>
+          <div>
+            <label class="text-xs text-gray-400">Creator name</label>
+            <input
+              id="creator-name"
+              class="w-full p-3 rounded-xl bg-gray-900 border border-red-700 text-white"
+              value="{{ profile.creator_name }}"
+            />
+          </div>
+          <div>
+            <label class="text-xs text-gray-400">Theme</label>
+            <select
+              id="theme-select"
+              class="w-full p-3 rounded-xl bg-gray-900 border border-red-700 text-white"
+            >
+              <option value="crimson">Crimson</option>
+              <option value="purple">Purple</option>
+              <option value="pink">Pink</option>
+              <option value="black">Black</option>
+              <option value="blue">Blue</option>
+              <option value="emerald">Emerald</option>
+              <option value="orange">Orange</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400">Response preset</label>
+            <select
+              id="preset-select"
+              class="w-full p-3 rounded-xl bg-gray-900 border border-red-700 text-white"
+            >
+              <option value="precise">Precise</option>
+              <option value="balanced">Balanced</option>
+              <option value="creative">Creative</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+          <div>
+            <label class="text-xs text-gray-400"
+              >Temperature <span id="temperature-value"></span
+            ></label>
+            <input
+              type="range"
+              id="temperature"
+              min="0"
+              max="1.5"
+              step="0.05"
+              class="w-full"
+            />
+          </div>
+          <div>
+            <label class="text-xs text-gray-400"
+              >Top P <span id="top-p-value"></span
+            ></label>
+            <input
+              type="range"
+              id="top-p"
+              min="0.1"
+              max="1"
+              step="0.05"
+              class="w-full"
+            />
+          </div>
+          <div>
+            <label class="text-xs text-gray-400"
+              >Top K <span id="top-k-value"></span
+            ></label>
+            <input
+              type="range"
+              id="top-k"
+              min="1"
+              max="200"
+              step="1"
+              class="w-full"
+            />
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+          <div>
+            <label class="text-xs text-gray-400">Max tokens</label>
+            <input
+              type="number"
+              id="max-tokens"
+              min="64"
+              max="4096"
+              class="w-full p-3 rounded-xl bg-gray-900 border border-red-700 text-white"
+            />
+          </div>
+          <div>
+            <label class="text-xs text-gray-400">Privacy mode</label>
+            <select
+              id="privacy-mode"
+              class="w-full p-3 rounded-xl bg-gray-900 border border-red-700 text-white"
+            >
+              <option value="ephemeral">Ephemeral (session only)</option>
+              <option value="persistent">Persistent (save chats)</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-4 p-3 rounded-xl border border-red-700/40 bg-black/30">
+          <p class="text-sm font-semibold text-red-300 mb-2">Local Knowledge (RAG)</p>
+          <label class="text-xs text-gray-300 flex items-center gap-2 mb-3">
+            <input type="checkbox" id="rag-enabled" />
+            Enable document retrieval in chat responses
+          </label>
+          <div class="flex flex-wrap gap-2 items-center">
+            <input
+              id="rag-file"
+              type="file"
+              class="text-xs text-gray-300"
+              multiple
+              accept=".txt,.md,.py,.json,.csv,.html,.js,.css,.pdf"
+            />
+            <button
+              id="rag-upload"
+              type="button"
+              class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700"
+            >
+              Index file
+            </button>
+            <button
+              id="rag-clear"
+              type="button"
+              class="bg-transparent border border-red-600 text-red-200 px-3 py-2 rounded-lg hover:bg-red-700/20"
+            >
+              Clear knowledge base
+            </button>
+          </div>
+          <div
+            id="rag-drop-zone"
+            class="mt-2 p-3 rounded-xl border border-red-700/40 text-xs text-gray-300"
+          >
+            Drag and drop multiple files here to index.
+          </div>
+          <p id="rag-status-text" class="text-xs text-gray-400 mt-2"></p>
+          <div id="rag-doc-list" class="space-y-2 mt-3"></div>
+        </div>
         <div class="mt-3 flex flex-wrap gap-3 items-center">
           <button
             id="save-settings"
@@ -884,6 +1129,13 @@
             class="bg-transparent border border-red-600 text-red-200 px-4 py-2 rounded-lg hover:bg-red-700/20"
           >
             Reset default prompt
+          </button>
+          <button
+            id="wipe-local-data"
+            type="button"
+            class="bg-transparent border border-red-600 text-red-200 px-4 py-2 rounded-lg hover:bg-red-700/20"
+          >
+            Wipe local data
           </button>
           <span class="text-xs text-gray-400"
             >System prompt saves locally. Chat history is session-only and
@@ -919,6 +1171,26 @@
           Generating summary...
         </div>
       </div>
+      <div
+        id="rag-debug-panel"
+        class="hidden mb-4 rounded-2xl border border-red-700/40 bg-black/40 p-3 text-white"
+      >
+        <p class="text-sm font-semibold text-red-300 mb-2">RAG Debug</p>
+        <div id="rag-debug-content" class="text-xs text-gray-300"></div>
+      </div>
+      <div id="sources-modal" class="summary-panel hidden">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <h2 class="text-lg font-bold text-red-300">Retrieved Sources</h2>
+          <button
+            id="close-sources"
+            type="button"
+            class="text-red-300 hover:text-white text-2xl leading-none"
+          >
+            ×
+          </button>
+        </div>
+        <div id="sources-content" class="text-gray-300"></div>
+      </div>
       <div id="chat" class="chat-container space-y-4 mb-4"></div>
       <div id="loading" class="loading">
         <div class="ai-avatar"></div>
@@ -942,6 +1214,13 @@
         >
           Send
         </button>
+        <button
+          id="stop-generate"
+          type="button"
+          class="hidden bg-transparent border border-red-600 text-red-200 px-4 py-2 rounded-lg hover:bg-red-700/20"
+        >
+          Stop
+        </button>
       </form>
     </div>
 
@@ -949,6 +1228,20 @@
       window.hljs = window.hljs || { highlightAll: () => {} };
       let currentChatIndex = {{ current_chat_index }};
       let chats = {{ chats|tojson }};
+      const generationSettings = {{ generation_settings|tojson }};
+      const profileSettings = {{ profile|tojson }};
+      const initialRagStatus = {{ rag_status|tojson }};
+      const initialPrivacyMode = {{ privacy_mode|tojson }};
+      let activeChatController = null;
+      let activeStreamingTextDiv = null;
+      let activeStreamingBubble = null;
+      let streamedRawText = '';
+
+      const PRESETS = {
+          precise: { temperature: 0.3, top_p: 0.85, top_k: 30 },
+          balanced: { temperature: 0.7, top_p: 0.9, top_k: 40 },
+          creative: { temperature: 1.0, top_p: 0.95, top_k: 80 },
+      };
 
       function updateChatHistory() {
           const historyDiv = document.getElementById('chat-history');
@@ -1074,7 +1367,7 @@
           if (currentChatIndex >= 0 && currentChatIndex < chats.length) {
               const chat = chats[currentChatIndex];
               chat.messages.forEach(msg => {
-                  appendMessage(msg.message, msg.type);
+                  appendMessage(msg.message, msg.type, msg.sources || []);
               });
           }
           hljs.highlightAll();
@@ -1094,37 +1387,291 @@
       const resetSystemPromptButton = document.getElementById('reset-system-prompt');
       const settingsPanel = document.getElementById('settings-panel');
       const systemPromptInput = document.getElementById('system-prompt');
+        const assistantNameInput = document.getElementById('assistant-name');
+        const creatorNameInput = document.getElementById('creator-name');
+        const presetSelect = document.getElementById('preset-select');
+        const temperatureInput = document.getElementById('temperature');
+        const topPInput = document.getElementById('top-p');
+        const topKInput = document.getElementById('top-k');
+        const maxTokensInput = document.getElementById('max-tokens');
+        const temperatureValue = document.getElementById('temperature-value');
+        const topPValue = document.getElementById('top-p-value');
+        const topKValue = document.getElementById('top-k-value');
+        const stopButton = document.getElementById('stop-generate');
+        const healthPill = document.getElementById('health-pill');
+      const ragEnabledInput = document.getElementById('rag-enabled');
+      const ragFileInput = document.getElementById('rag-file');
+      const ragUploadButton = document.getElementById('rag-upload');
+      const ragClearButton = document.getElementById('rag-clear');
+        const ragDropZone = document.getElementById('rag-drop-zone');
+      const ragStatusText = document.getElementById('rag-status-text');
+      const ragDocList = document.getElementById('rag-doc-list');
+      const privacyModeInput = document.getElementById('privacy-mode');
+        const themeSelectInput = document.getElementById('theme-select');
+      const wipeLocalDataButton = document.getElementById('wipe-local-data');
+        const ragDebugPanel = document.getElementById('rag-debug-panel');
+        const ragDebugContent = document.getElementById('rag-debug-content');
       const defaultSystemPrompt = {{ system_prompt|tojson }};
+        let droppedRagFiles = [];
+
+        const ALLOWED_THEMES = ['crimson', 'purple', 'pink', 'black', 'blue', 'emerald', 'orange'];
+
+        function applyTheme(themeName) {
+          const safeTheme = ALLOWED_THEMES.includes(themeName) ? themeName : 'crimson';
+          if (safeTheme === 'crimson') {
+            document.documentElement.removeAttribute('data-theme');
+          } else {
+            document.documentElement.setAttribute('data-theme', safeTheme);
+          }
+            try {
+              localStorage.setItem('court_theme', safeTheme);
+            } catch (error) {
+              // Ignore storage errors in restricted/private browsing contexts.
+            }
+        }
+
+        function syncSettingLabels() {
+          temperatureValue.textContent = Number(temperatureInput.value).toFixed(2);
+          topPValue.textContent = Number(topPInput.value).toFixed(2);
+          topKValue.textContent = topKInput.value;
+        }
+
+        function applyPreset(presetName) {
+          const preset = PRESETS[presetName];
+          if (!preset) return;
+          temperatureInput.value = preset.temperature;
+          topPInput.value = preset.top_p;
+          topKInput.value = preset.top_k;
+          syncSettingLabels();
+        }
+
+        function hydrateSettingsUI() {
+          presetSelect.value = generationSettings.preset || 'balanced';
+          temperatureInput.value = generationSettings.temperature ?? 0.7;
+          topPInput.value = generationSettings.top_p ?? 0.9;
+          topKInput.value = generationSettings.top_k ?? 40;
+          maxTokensInput.value = generationSettings.max_tokens ?? 1024;
+          assistantNameInput.value = profileSettings.assistant_name || 'Court';
+          creatorNameInput.value = profileSettings.creator_name || 'Nox';
+          themeSelectInput.value = profileSettings.theme || 'crimson';
+          ragEnabledInput.checked = initialRagStatus.enabled !== false;
+          privacyModeInput.value = initialPrivacyMode || 'ephemeral';
+          applyTheme(themeSelectInput.value);
+          syncSettingLabels();
+        }
+
+        function paintRagStatus(status) {
+          ragEnabledInput.checked = status.enabled !== false;
+          ragStatusText.textContent = `Status: ${status.enabled ? 'enabled' : 'disabled'} | Documents: ${status.doc_count || 0} | Chunks: ${status.chunk_count || 0}`;
+          renderRagDocumentList(status.documents || []);
+        }
+
+        function renderRagDocumentList(documents) {
+          ragDocList.innerHTML = '';
+          if (!documents.length) {
+            ragDocList.innerHTML = '<p class="text-xs text-gray-500">No indexed documents yet.</p>';
+            return;
+          }
+          documents.forEach((doc) => {
+            const row = document.createElement('div');
+            row.className = 'flex items-center justify-between gap-2 p-2 rounded border border-red-700/40';
+            row.innerHTML = `
+              <div class="text-xs">
+                <div class="text-red-200 font-semibold">${doc.name}</div>
+                <div class="text-gray-400">${doc.chunks} chunks</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" class="text-xs text-red-300">Rename</button>
+                <button type="button" class="text-xs text-red-300">Delete</button>
+              </div>
+            `;
+            const buttons = row.querySelectorAll('button');
+            const renameButton = buttons[0];
+            const deleteButton = buttons[1];
+            renameButton.addEventListener('click', async () => {
+              const updatedName = window.prompt('Rename document', doc.name);
+              if (!updatedName) return;
+              const response = await fetch(`/api/rag/rename/${doc.id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: updatedName.trim() }),
+              });
+              const data = await response.json();
+              if (!response.ok || !data.success) {
+                alert(data.error || 'Unable to rename document.');
+                return;
+              }
+              paintRagStatus(data);
+            });
+            deleteButton.addEventListener('click', async () => {
+              const confirmed = window.confirm(`Delete ${doc.name}?`);
+              if (!confirmed) return;
+              const response = await fetch(`/api/rag/delete/${doc.id}`, { method: 'POST' });
+              const data = await response.json();
+              if (!response.ok || !data.success) {
+                alert(data.error || 'Unable to delete document.');
+                return;
+              }
+              paintRagStatus(data);
+            });
+            ragDocList.appendChild(row);
+          });
+        }
+
+        async function refreshRagStatus() {
+          try {
+            const response = await fetch('/api/rag/status');
+            if (!response.ok) return;
+            const data = await response.json();
+            if (data.success) {
+              paintRagStatus(data);
+            }
+          } catch (error) {
+            ragStatusText.textContent = 'Unable to load RAG status.';
+          }
+        }
+
+        async function refreshHealth() {
+          try {
+            const response = await fetch('/api/health');
+            if (!response.ok) return;
+            const data = await response.json();
+            if (data.ollama_available && data.model_installed) {
+              healthPill.textContent = 'Ollama online • Model ready';
+            } else if (data.ollama_available) {
+              healthPill.textContent = 'Ollama online • Model missing';
+            } else {
+              healthPill.textContent = 'Ollama offline';
+            }
+          } catch (error) {
+            healthPill.textContent = 'Health check unavailable';
+          }
+        }
+
+        function createStreamingBubble() {
+          const chat = document.getElementById('chat');
+          const bubble = document.createElement('div');
+          bubble.className = 'flex justify-start items-start space-x-2';
+
+          const avatar = document.createElement('div');
+          avatar.className = 'ai-avatar flex-shrink-0';
+          bubble.appendChild(avatar);
+
+          const textDiv = document.createElement('div');
+          textDiv.className = 'px-4 py-2 rounded-lg max-w-xs lg:max-w-md message-content bg-gray-800 text-white';
+          textDiv.style.whiteSpace = 'pre-wrap';
+          textDiv.textContent = '';
+          bubble.appendChild(textDiv);
+
+          chat.appendChild(bubble);
+          chat.scrollTop = chat.scrollHeight;
+          activeStreamingBubble = bubble;
+          activeStreamingTextDiv = textDiv;
+        }
+
+        function updateStreamingBubble(chunk) {
+          if (!activeStreamingTextDiv) createStreamingBubble();
+          streamedRawText += chunk;
+          activeStreamingTextDiv.textContent = streamedRawText;
+          const chat = document.getElementById('chat');
+          chat.scrollTop = chat.scrollHeight;
+        }
+
+        function finalizeStreamingBubble(finalHtml, sources) {
+          if (!activeStreamingTextDiv) {
+            appendMessage(finalHtml, 'ai', sources || []);
+            return;
+          }
+          activeStreamingTextDiv.style.whiteSpace = 'normal';
+          activeStreamingTextDiv.innerHTML = finalHtml;
+          attachSourcesButton(activeStreamingBubble, sources || []);
+          addCopyButtons();
+          hljs.highlightAll();
+        }
+
+        function clearStreamingState() {
+          activeChatController = null;
+          activeStreamingTextDiv = null;
+          activeStreamingBubble = null;
+          streamedRawText = '';
+          stopButton.classList.add('hidden');
+          loading.style.display = 'none';
+        }
 
       form.addEventListener('submit', async (event) => {
           event.preventDefault();
           const message = input.value.trim();
-          if (!message) return;
+          if (!message || activeChatController) return;
+          renderRagDebug([]);
           input.value = '';
           appendMessage(message, 'user');
           loading.style.display = 'flex';
+          stopButton.classList.remove('hidden');
           const chatDiv = document.getElementById('chat');
           chatDiv.scrollTop = chatDiv.scrollHeight;
+          activeChatController = new AbortController();
 
           try {
-              const response = await fetch('/api/chat', {
+            const response = await fetch('/api/chat_stream', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ message })
+              body: JSON.stringify({ message }),
+              signal: activeChatController.signal,
               });
-              const data = await response.json();
-              appendMessage(data.response, 'ai');
-              if (data.chats) {
-                  chats = data.chats;
-                  currentChatIndex = data.current_index;
-                  updateChatHistory();
+            if (!response.ok || !response.body) {
+              throw new Error('Unable to stream response.');
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              buffer += decoder.decode(value, { stream: true });
+              const lines = buffer.split('\n');
+              buffer = lines.pop() || '';
+
+              for (const line of lines) {
+                if (!line.trim()) continue;
+                const packet = JSON.parse(line);
+                if (packet.type === 'context') {
+                  renderRagDebug(packet.sources || []);
+                } else if (packet.type === 'chunk') {
+                  updateStreamingBubble(packet.content || '');
+                } else if (packet.type === 'done') {
+                  finalizeStreamingBubble(packet.response || '', packet.sources || []);
+                  if (packet.chats) {
+                    chats = packet.chats;
+                    currentChatIndex = packet.current_index;
+                    updateChatHistory();
+                  }
+                } else if (packet.type === 'error') {
+                  appendMessage(packet.message || 'Error: Unable to get response', 'ai');
+                }
+              }
               }
           } catch (error) {
+            if (error.name === 'AbortError') {
+              if (streamedRawText && activeStreamingTextDiv) {
+                activeStreamingTextDiv.textContent += '\n\n[Generation stopped]';
+              } else {
+                appendMessage('Generation stopped.', 'ai');
+              }
+            } else {
               appendMessage('Error: Unable to get response', 'ai');
+            }
           } finally {
-              loading.style.display = 'none';
+            clearStreamingState();
           }
       });
+
+        stopButton.addEventListener('click', () => {
+          if (activeChatController) {
+            activeChatController.abort();
+          }
+        });
 
       quickButtons.forEach(button => {
           button.addEventListener('click', () => {
@@ -1164,7 +1711,7 @@
               system_prompt: systemPromptInput.value.trim(),
               chats: chats,
           };
-          downloadJSON(exportPayload, 'betten_chats.json');
+            downloadJSON(exportPayload, 'court_chats.json');
       });
 
       importChatButton.addEventListener('click', () => {
@@ -1212,14 +1759,38 @@
 
       saveSettingsButton.addEventListener('click', async () => {
           const promptText = systemPromptInput.value.trim();
+          const generationPayload = {
+            preset: presetSelect.value,
+            temperature: Number(temperatureInput.value),
+            top_p: Number(topPInput.value),
+            top_k: Number(topKInput.value),
+            max_tokens: Number(maxTokensInput.value),
+          };
+          const profilePayload = {
+            assistant_name: assistantNameInput.value.trim() || 'Court',
+            creator_name: creatorNameInput.value.trim() || 'Nox',
+            theme: themeSelectInput.value,
+          };
+          await fetch('/api/rag/toggle', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ enabled: ragEnabledInput.checked }),
+          });
           const response = await fetch('/api/save_settings', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ system_prompt: promptText }),
+            body: JSON.stringify({
+              system_prompt: promptText,
+              generation_settings: generationPayload,
+              profile: profilePayload,
+              privacy_mode: privacyModeInput.value,
+            }),
           });
           const data = await response.json();
           if (data.success) {
+              applyTheme(themeSelectInput.value);
               alert('Settings saved locally.');
+              refreshRagStatus();
           } else {
               alert('Unable to save settings.');
           }
@@ -1227,7 +1798,110 @@
 
       resetSystemPromptButton.addEventListener('click', () => {
           systemPromptInput.value = defaultSystemPrompt;
+          applyPreset('balanced');
+          maxTokensInput.value = 1024;
       });
+
+        ragUploadButton.addEventListener('click', async () => {
+          const selectedFiles = [
+            ...(ragFileInput.files ? Array.from(ragFileInput.files) : []),
+            ...droppedRagFiles,
+          ];
+          if (!selectedFiles.length) {
+            alert('Select one or more files to index first.');
+            return;
+          }
+
+          const formData = new FormData();
+          selectedFiles.forEach((file) => {
+            formData.append('files', file);
+          });
+
+          try {
+            ragUploadButton.disabled = true;
+            ragUploadButton.textContent = 'Indexing...';
+            const response = await fetch('/api/rag/upload', {
+              method: 'POST',
+              body: formData,
+            });
+            const data = await response.json();
+            if (!response.ok || !data.success) {
+              throw new Error(data.error || 'Upload failed.');
+            }
+            const uploadedCount = (data.uploaded || []).length;
+            alert(`Indexed ${uploadedCount} file(s) into local knowledge.`);
+            ragFileInput.value = '';
+            droppedRagFiles = [];
+            ragDropZone.textContent = 'Drag and drop multiple files here to index.';
+            paintRagStatus(data);
+          } catch (error) {
+            alert(`RAG upload failed: ${error.message}`);
+          } finally {
+            ragUploadButton.disabled = false;
+            ragUploadButton.textContent = 'Index file';
+          }
+        });
+
+        ragDropZone.addEventListener('dragover', (event) => {
+          event.preventDefault();
+          ragDropZone.classList.add('bg-black/40');
+        });
+
+        ragDropZone.addEventListener('dragleave', () => {
+          ragDropZone.classList.remove('bg-black/40');
+        });
+
+        ragDropZone.addEventListener('drop', (event) => {
+          event.preventDefault();
+          ragDropZone.classList.remove('bg-black/40');
+          const files = Array.from(event.dataTransfer.files || []);
+          if (!files.length) return;
+          droppedRagFiles = files;
+          ragDropZone.textContent = `${files.length} file(s) ready to index.`;
+        });
+
+        ragClearButton.addEventListener('click', async () => {
+          const confirmed = window.confirm('Clear all indexed local knowledge for this user?');
+          if (!confirmed) return;
+          const response = await fetch('/api/rag/clear', { method: 'POST' });
+          const data = await response.json();
+          if (response.ok && data.success) {
+            paintRagStatus(data);
+            alert('Knowledge base cleared.');
+          } else {
+            alert('Unable to clear knowledge base.');
+          }
+        });
+
+        wipeLocalDataButton.addEventListener('click', async () => {
+          const confirmed = window.confirm('This will wipe chats, indexed docs, and reset settings for this account. Continue?');
+          if (!confirmed) return;
+          const response = await fetch('/api/privacy/wipe', { method: 'POST' });
+          const data = await response.json();
+          if (!response.ok || !data.success) {
+            alert(data.error || 'Unable to wipe local data.');
+            return;
+          }
+          chats = [];
+          currentChatIndex = -1;
+          updateChatHistory();
+          renderChat();
+          systemPromptInput.value = defaultSystemPrompt;
+          applyPreset('balanced');
+          maxTokensInput.value = 1024;
+          paintRagStatus({ enabled: true, doc_count: 0, chunk_count: 0, documents: [] });
+          alert('Local data wiped for this account.');
+        });
+
+        presetSelect.addEventListener('change', () => {
+          applyPreset(presetSelect.value);
+        });
+        themeSelectInput.addEventListener('change', () => {
+          applyTheme(themeSelectInput.value);
+        });
+        temperatureInput.addEventListener('input', syncSettingLabels);
+        topPInput.addEventListener('input', syncSettingLabels);
+        topKInput.addEventListener('input', syncSettingLabels);
 
       function downloadJSON(data, filename) {
           const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -1247,7 +1921,7 @@
           }
       });
 
-      function appendMessage(text, type) {
+        function appendMessage(text, type, sources = []) {
           const chat = document.getElementById('chat');
           const bubble = document.createElement('div');
           bubble.className = `flex ${type === 'ai' ? 'justify-start' : 'justify-end'} items-start space-x-2`;
@@ -1260,11 +1934,59 @@
           textDiv.className = `px-4 py-2 rounded-lg max-w-xs lg:max-w-md message-content ${type === 'ai' ? 'bg-gray-800 text-white' : 'bg-red-600 text-white'}`;
           textDiv.innerHTML = text;
           bubble.appendChild(textDiv);
+          attachSourcesButton(bubble, sources);
           chat.appendChild(bubble);
           chat.scrollTop = chat.scrollHeight;
           hljs.highlightAll();
           addCopyButtons();
       }
+
+          function attachSourcesButton(bubble, sources) {
+            if (!sources || !sources.length) return;
+            if (bubble.querySelector('.sources-button')) return;
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'sources-button bg-transparent border border-red-600 text-red-200 px-3 py-1 rounded-lg hover:bg-red-700/20 mt-2';
+            button.textContent = `View sources (${sources.length})`;
+            button.addEventListener('click', () => showSourcesModal(sources));
+            const holder = document.createElement('div');
+            holder.className = 'flex justify-start';
+            holder.appendChild(button);
+            bubble.appendChild(holder);
+          }
+
+          function showSourcesModal(sources) {
+            const modal = document.getElementById('sources-modal');
+            const content = document.getElementById('sources-content');
+            content.innerHTML = '';
+            sources.forEach((source) => {
+              const block = document.createElement('div');
+              block.className = 'mb-3 p-3 rounded-xl border border-red-700/40 bg-black/40';
+                const scoreLine = typeof source.score === 'number'
+                ? `<p class="text-xs text-gray-400">Relevance: ${source.score.toFixed(4)}</p>`
+                : '';
+                block.innerHTML = `<p class="text-red-300 font-semibold">[${source.id}] ${source.source}</p>${scoreLine}<p class="text-gray-300">${source.snippet}</p>`;
+              content.appendChild(block);
+            });
+            modal.classList.remove('hidden');
+          }
+
+            function renderRagDebug(sources) {
+              if (!sources || !sources.length) {
+                ragDebugPanel.classList.add('hidden');
+                ragDebugContent.innerHTML = '';
+                return;
+              }
+              ragDebugPanel.classList.remove('hidden');
+              ragDebugContent.innerHTML = '';
+              sources.forEach((source) => {
+                const row = document.createElement('div');
+                row.className = 'mb-2';
+                const score = typeof source.score === 'number' ? source.score.toFixed(4) : 'n/a';
+                row.innerHTML = `<strong>[${source.id}] ${source.source}</strong> <span class="text-gray-400">(score: ${score})</span><br/><span>${source.snippet}</span>`;
+                ragDebugContent.appendChild(row);
+              });
+            }
 
       function addCopyButtons() {
           document.querySelectorAll('pre code').forEach((code) => {
@@ -1367,8 +2089,10 @@
       const searchInput = document.getElementById('search-input');
       const searchResultsModal = document.getElementById('search-results-modal');
       const summaryModal = document.getElementById('summary-modal');
+      const sourcesModal = document.getElementById('sources-modal');
       const closeSearchBtn = document.getElementById('close-search');
       const closeSummaryBtn = document.getElementById('close-summary');
+      const closeSourcesBtn = document.getElementById('close-sources');
 
       if (searchInput) {
           searchInput.addEventListener('keyup', async (event) => {
@@ -1390,6 +2114,12 @@
           });
       }
 
+        if (closeSourcesBtn) {
+          closeSourcesBtn.addEventListener('click', () => {
+            sourcesModal.classList.add('hidden');
+          });
+        }
+
       // Keyboard shortcuts
       document.addEventListener('keydown', (event) => {
           if (event.ctrlKey || event.metaKey) {
@@ -1408,6 +2138,11 @@
       });
 
       // Initialize
+      hydrateSettingsUI();
+      paintRagStatus(initialRagStatus || { enabled: true, doc_count: 0, chunk_count: 0 });
+      refreshRagStatus();
+      refreshHealth();
+      setInterval(refreshHealth, 20000);
       updateChatHistory();
       renderChat();
     </script>

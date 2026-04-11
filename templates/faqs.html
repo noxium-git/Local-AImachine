@@ -1,15 +1,109 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" {% if initial_theme and initial_theme != 'crimson' %}data-theme="{{ initial_theme }}"{% endif %}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FAQs - Betten AI</title>
+    <title>FAQs - Court</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+      {% set theme = initial_theme|default('crimson') %}
+      :root {
+        --brand-300: #fca5a5;
+        --brand-400: #f87171;
+        --brand-700: #b91c1c;
+        --page-gradient: linear-gradient(135deg, #000000 0%, #330000 100%);
+      }
+      {% if theme == 'purple' %}
+      :root {
+        --brand-300: #c4b5fd;
+        --brand-400: #a78bfa;
+        --brand-700: #6d28d9;
+        --page-gradient: linear-gradient(135deg, #0b0319 0%, #220b47 100%);
+      }
+      {% elif theme == 'pink' %}
+      :root {
+        --brand-300: #f9a8d4;
+        --brand-400: #f472b6;
+        --brand-700: #be185d;
+        --page-gradient: linear-gradient(135deg, #16040e 0%, #3e0a25 100%);
+      }
+      {% elif theme == 'black' %}
+      :root {
+        --brand-300: #9ca3af;
+        --brand-400: #6b7280;
+        --brand-700: #1f2937;
+        --page-gradient: linear-gradient(135deg, #050505 0%, #181818 100%);
+      }
+      {% elif theme == 'blue' %}
+      :root {
+        --brand-300: #93c5fd;
+        --brand-400: #60a5fa;
+        --brand-700: #1d4ed8;
+        --page-gradient: linear-gradient(135deg, #031022 0%, #0a2c63 100%);
+      }
+      {% elif theme == 'emerald' %}
+      :root {
+        --brand-300: #6ee7b7;
+        --brand-400: #34d399;
+        --brand-700: #047857;
+        --page-gradient: linear-gradient(135deg, #02120d 0%, #0a3f2f 100%);
+      }
+      {% elif theme == 'orange' %}
+      :root {
+        --brand-300: #fdba74;
+        --brand-400: #fb923c;
+        --brand-700: #c2410c;
+        --page-gradient: linear-gradient(135deg, #140902 0%, #4a220a 100%);
+      }
+      {% endif %}
+      [data-theme='purple'] {
+        --brand-300: #c4b5fd;
+        --brand-400: #a78bfa;
+        --brand-700: #6d28d9;
+        --page-gradient: linear-gradient(135deg, #0b0319 0%, #220b47 100%);
+      }
+      [data-theme='pink'] {
+        --brand-300: #f9a8d4;
+        --brand-400: #f472b6;
+        --brand-700: #be185d;
+        --page-gradient: linear-gradient(135deg, #16040e 0%, #3e0a25 100%);
+      }
+      [data-theme='black'] {
+        --brand-300: #9ca3af;
+        --brand-400: #6b7280;
+        --brand-700: #1f2937;
+        --page-gradient: linear-gradient(135deg, #050505 0%, #181818 100%);
+      }
+      [data-theme='blue'] {
+        --brand-300: #93c5fd;
+        --brand-400: #60a5fa;
+        --brand-700: #1d4ed8;
+        --page-gradient: linear-gradient(135deg, #031022 0%, #0a2c63 100%);
+      }
+      [data-theme='emerald'] {
+        --brand-300: #6ee7b7;
+        --brand-400: #34d399;
+        --brand-700: #047857;
+        --page-gradient: linear-gradient(135deg, #02120d 0%, #0a3f2f 100%);
+      }
+      [data-theme='orange'] {
+        --brand-300: #fdba74;
+        --brand-400: #fb923c;
+        --brand-700: #c2410c;
+        --page-gradient: linear-gradient(135deg, #140902 0%, #4a220a 100%);
+      }
+
       body {
-        background: linear-gradient(135deg, #000000 0%, #330000 100%);
+        background: var(--page-gradient);
         min-height: 100vh;
         color: #ffffff;
+      }
+      .text-red-400 {
+        color: var(--brand-400) !important;
+      }
+      .text-red-300,
+      .hover\:text-red-300:hover {
+        color: var(--brand-300) !important;
       }
     </style>
   </head>
@@ -19,10 +113,10 @@
         <div class="flex items-center">
           <img
             src="{{ url_for('static', filename='images/bettenLocal.jpg') }}"
-            alt="Betten Logo"
+            alt="Court Logo"
             class="w-12 h-12 rounded-full mr-4"
           />
-          <h1 class="text-3xl font-bold">Betten AI - FAQs</h1>
+          <h1 class="text-3xl font-bold">Court - FAQs</h1>
         </div>
         <div>
           <a
@@ -39,9 +133,9 @@
       </div>
 
       <div class="bg-black bg-opacity-50 p-6 rounded-lg mb-6">
-        <h2 class="text-2xl font-bold mb-4 text-red-400">About Betten AI</h2>
+        <h2 class="text-2xl font-bold mb-4 text-red-400">About Court</h2>
         <p class="mb-4">
-          Betten AI is a local, uncensored AI assistant designed for creative
+          Court is a local, uncensored AI assistant designed for creative
           minds. It runs entirely on your machine, ensuring privacy and
           security.
         </p>
@@ -55,10 +149,10 @@
       <div class="space-y-6">
         <div class="bg-black bg-opacity-50 p-6 rounded-lg">
           <h3 class="text-xl font-bold mb-2 text-red-400">
-            What is Betten AI?
+            What is Court?
           </h3>
           <p>
-            Betten AI is an AI companion that helps you with creative ideas,
+            Court is an AI companion that helps you with creative ideas,
             coding, writing, and more. It's designed to be uncensored and
             helpful for all kinds of tasks.
           </p>
@@ -67,7 +161,7 @@
         <div class="bg-black bg-opacity-50 p-6 rounded-lg">
           <h3 class="text-xl font-bold mb-2 text-red-400">Is my data safe?</h3>
           <p>
-            Yes! Betten AI runs locally on your machine using Ollama. No data is
+            Yes! Court runs locally on your machine using Ollama. No data is
             sent to external servers, and chat history is only stored
             temporarily in your browser session.
           </p>
@@ -76,8 +170,8 @@
         <div class="bg-black bg-opacity-50 p-6 rounded-lg">
           <h3 class="text-xl font-bold mb-2 text-red-400">How do I use it?</h3>
           <p>
-            Simply type your questions or requests in the chat interface. Betten
-            AI will respond with helpful, formatted answers including code
+            Simply type your questions or requests in the chat interface. Court
+            will respond with helpful, formatted answers including code
             blocks when appropriate.
           </p>
         </div>
@@ -94,15 +188,39 @@
 
         <div class="bg-black bg-opacity-50 p-6 rounded-lg">
           <h3 class="text-xl font-bold mb-2 text-red-400">
-            Enjoy using Betten AI!
+            Enjoy using Court!
           </h3>
           <p>
-            Have fun exploring your creativity with Betten AI. Whether you're
-            coding, writing, or brainstorming ideas, Betten is here to help you
+            Have fun exploring your creativity with Court. Whether you're
+            coding, writing, or brainstorming ideas, Court is here to help you
             build amazing things.
           </p>
         </div>
       </div>
     </div>
+    <script>
+      (() => {
+        const serverTheme = '{{ initial_theme|default("crimson") }}';
+        const theme = serverTheme || localStorage.getItem('court_theme') || 'crimson';
+        const palettes = {
+          crimson: { brand300: '#fca5a5', brand400: '#f87171', brand700: '#b91c1c', gradient: 'linear-gradient(135deg, #000000 0%, #330000 100%)' },
+          purple: { brand300: '#c4b5fd', brand400: '#a78bfa', brand700: '#6d28d9', gradient: 'linear-gradient(135deg, #0b0319 0%, #220b47 100%)' },
+          pink: { brand300: '#f9a8d4', brand400: '#f472b6', brand700: '#be185d', gradient: 'linear-gradient(135deg, #16040e 0%, #3e0a25 100%)' },
+          black: { brand300: '#9ca3af', brand400: '#6b7280', brand700: '#1f2937', gradient: 'linear-gradient(135deg, #050505 0%, #181818 100%)' },
+          blue: { brand300: '#93c5fd', brand400: '#60a5fa', brand700: '#1d4ed8', gradient: 'linear-gradient(135deg, #031022 0%, #0a2c63 100%)' },
+          emerald: { brand300: '#6ee7b7', brand400: '#34d399', brand700: '#047857', gradient: 'linear-gradient(135deg, #02120d 0%, #0a3f2f 100%)' },
+          orange: { brand300: '#fdba74', brand400: '#fb923c', brand700: '#c2410c', gradient: 'linear-gradient(135deg, #140902 0%, #4a220a 100%)' },
+        };
+        const palette = palettes[theme] || palettes.crimson;
+        if (theme && theme !== 'crimson') {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+        document.documentElement.style.setProperty('--brand-300', palette.brand300);
+        document.documentElement.style.setProperty('--brand-400', palette.brand400);
+        document.documentElement.style.setProperty('--brand-700', palette.brand700);
+        document.documentElement.style.setProperty('--page-gradient', palette.gradient);
+        localStorage.setItem('court_theme', theme);
+      })();
+    </script>
   </body>
 </html>

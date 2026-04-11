@@ -1,5 +1,5 @@
 <#
-Build script for Betten AI local installer package.
+Build script for Court local installer package.
 
 Usage:
   1. Install PyInstaller if needed:
@@ -7,7 +7,7 @@ Usage:
   2. Run this script in PowerShell:
        .\package.ps1
 
-This will build a local one-folder distribution under dist\BettenAI.
+This will build a local one-folder distribution under dist\Court.
 #>
 
 $ErrorActionPreference = 'Stop'
@@ -15,7 +15,7 @@ $ErrorActionPreference = 'Stop'
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $scriptDir
 
-Write-Host 'Building Betten AI local package...' -ForegroundColor Cyan
+Write-Host 'Building Court local package...' -ForegroundColor Cyan
 
 # Ensure PyInstaller is installed
 if (-not (Get-Command pyinstaller -ErrorAction SilentlyContinue)) {
@@ -23,7 +23,7 @@ if (-not (Get-Command pyinstaller -ErrorAction SilentlyContinue)) {
     python -m pip install pyinstaller
 }
 
-$distName = 'BettenAI'
+$distName = 'Court'
 if (-not (Test-Path "storage.json")) {
     Write-Host 'Creating default storage.json...' -ForegroundColor Yellow
     '{}' | Out-File -Encoding utf8 storage.json

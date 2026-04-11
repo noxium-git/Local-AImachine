@@ -9,8 +9,8 @@ import app
 OLLAMA_HOST = '127.0.0.1'
 OLLAMA_PORT = 11434
 OLLAMA_COMMAND = ['ollama', 'serve']
-AUTO_START_OLLAMA = os.environ.get('BETTEN_AUTO_START_OLLAMA', 'true').lower() in ('1', 'true', 'yes')
-MODEL = os.environ.get('BETTEN_MODEL', 'godmoded/llama3-lexi-uncensored:latest')
+AUTO_START_OLLAMA = (os.environ.get('COURT_AUTO_START_OLLAMA') or os.environ.get('BETTEN_AUTO_START_OLLAMA', 'true')).lower() in ('1', 'true', 'yes')
+MODEL = os.environ.get('COURT_MODEL') or os.environ.get('BETTEN_MODEL', 'godmoded/llama3-lexi-uncensored:latest')
 
 
 def is_port_open(host, port, timeout=1.0):
@@ -53,7 +53,7 @@ def is_model_installed():
 
 
 def main():
-    print('Launching Betten AI locally...')
+    print('Launching Court locally...')
 
     if not is_port_open(OLLAMA_HOST, OLLAMA_PORT):
         print('Ollama is not running on http://127.0.0.1:11434')
@@ -70,7 +70,7 @@ def main():
         else:
             answer = input('Start Ollama server now? [Y/n]: ').strip().lower() or 'y'
             if answer not in ('y', 'yes'):
-                print('Please start Ollama manually before running Betten AI.')
+                print('Please start Ollama manually before running Court.')
                 sys.exit(1)
 
             ollama_proc = start_ollama()
@@ -88,22 +88,22 @@ def main():
     if not is_model_installed():
         print(f'Warning: model "{MODEL}" is not installed locally. Run `ollama pull {MODEL}` first.')
 
-    print('Starting Betten AI app...')
+    print('Starting Court app...')
     try:
         app.main()
     except Exception as e:
-        print(f'Betten AI exited with error: {e}')
+        print(f'Court exited with error: {e}')
     finally:
         if ollama_proc:
             print('Stopping Ollama server...')
             ollama_proc.terminate()
             ollama_proc.wait(timeout=10)
 
-    print('Starting Betten AI app...')
+    print('Starting Court app...')
     try:
         app.main()
     except Exception as e:
-        print(f'Betten AI exited with error: {e}')
+        print(f'Court exited with error: {e}')
     finally:
         if ollama_proc:
             print('Stopping Ollama server...')
