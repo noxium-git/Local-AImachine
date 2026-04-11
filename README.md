@@ -22,32 +22,86 @@ Created by **Nox**.
 - FAQs page
 - Temporary chat history (cleared on logout/server restart)
 
-## Setup
+## What You Need
 
-1. Install Python dependencies:
+Before first run, make sure you have:
 
+- Windows 10/11, macOS, or Linux
+- Python 3.11 or newer
+- Ollama installed locally (https://ollama.com/download)
+- At least 16 GB RAM recommended for larger models
+- Optional: NVIDIA GPU for faster local inference/training
+
+## First-Time Setup (Step-by-Step)
+
+The steps below are written for Windows PowerShell.
+
+1. Install Ollama
+
+   Download and install from https://ollama.com/download
+
+2. Verify Ollama is available
+
+   ```powershell
+   ollama --version
    ```
-   pip install -r requirements.txt
-   ```
 
-2. Ensure Ollama is running with the required model:
+3. Pull a model (required before app launch)
 
-   ```
+   ```powershell
    ollama pull godmoded/llama3-lexi-uncensored:latest
    ```
 
-3. Run the application:
+4. Clone this repository (if not already cloned)
 
+   ```powershell
+   git clone https://github.com/noxium-git/Local-AImachine.git
+   cd Local-AImachine
    ```
+
+5. Create and activate a virtual environment
+
+   ```powershell
+   py -3.11 -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   ```
+
+6. Install Python dependencies
+
+   ```powershell
+   pip install -r requirements.txt
+   ```
+
+7. Start the app
+
+   ```powershell
    python launcher.py
    ```
 
-4. Open your browser to `http://localhost:5000`
+8. Open the app
 
-5. Login with:
+   Visit http://localhost:5000
+
+9. Sign in
+
    - Username: admin
    - Password: admin123
-6. Or create a local account from the login page.
+   - Or create a new local account from the login page
+
+## Model Selection
+
+To run with a specific local Ollama model:
+
+```powershell
+$env:COURT_MODEL='court-refusal-v2'
+python app.py
+```
+
+If the UI shows model missing, confirm:
+
+```powershell
+ollama list
+```
 
 ## Evaluate Before Training
 
