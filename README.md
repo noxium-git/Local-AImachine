@@ -88,12 +88,62 @@ The steps below are written for Windows PowerShell.
    - Password: admin123
    - Or create a new local account from the login page
 
+## Linux Quick Start (Ubuntu/Debian)
+
+1. Install system dependencies
+
+   ```bash
+   sudo apt update
+   sudo apt install -y python3 python3-venv python3-pip git
+   ```
+
+2. Install Ollama
+
+   ```bash
+   curl -fsSL https://ollama.com/install.sh | sh
+   ollama --version
+   ```
+
+3. Clone the repo
+
+   ```bash
+   git clone https://github.com/noxium-git/Local-AImachine.git
+   cd Local-AImachine
+   ```
+
+4. Create and activate a virtual environment
+
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
+
+5. Install dependencies and pull model
+
+   ```bash
+   pip install -r requirements.txt
+   ollama pull godmoded/llama3-lexi-uncensored:latest
+   ```
+
+6. Start app
+
+   ```bash
+   python launcher.py
+   ```
+
 ## Model Selection
 
 To run with a specific local Ollama model:
 
 ```powershell
 $env:COURT_MODEL='court-refusal-v2'
+python app.py
+```
+
+Linux/macOS equivalent:
+
+```bash
+export COURT_MODEL='court-refusal-v2'
 python app.py
 ```
 
@@ -139,8 +189,14 @@ Use this workflow to reduce false refusals while preserving refusals for clearly
    python training_data/run_refusal_pipeline.py
    ```
 6. Launch app with target model:
+   ```powershell
+   $env:COURT_MODEL='court-refusal-v1'
+   python app.py
    ```
-   $env:COURT_MODEL='court-refusal-v1'; python app.py
+   Linux/macOS:
+   ```bash
+   export COURT_MODEL='court-refusal-v1'
+   python app.py
    ```
 
 ## Local RAG Quick Start
